@@ -26,3 +26,4 @@ geändert auf "%DIR%/../Output/LaTeX"
 
 ordnerstruktur mit unterordnern verbessert
 
+erstes git repository angelegt
