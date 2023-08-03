@@ -1,0 +1,28 @@
+notizen ferienprojekt sommer 2023
+
+iconfiles kann man mit glück unter dem namen favicon.ico finden
+https://github.com/favicon.ico
+
+vs code auf neusten stand aktuallisiert
+keepass2 auf neusten stand aktuallisiert
+anmeldung bei github.com
+download MiKTeX version 23.4
+https://miktex.org/download
+
+sicherstellen dass MiKTeX gefunden wird:
+start -> einstellungen -> systemeigenschaften -> umgebungsvariablen ->
+ benutzervariablen für iris -> Path -> bearbeiten ->
+ "C:\Users\Iris\AppData\Local\Programs\MiKTeX\miktex\bin\x64\"
+
+MiKTeX could not find the script engine 'perl' which is required to execute 'latexmk'.
+https://strawberryperl.com/
+strawberry-perl-5.32.1.1-64bit.msi
+heruntergeladen und installiert
+installationsverzeichnis: "C:\Users\Iris\AppData\Local\Strawberry"
+
+output verzeichnis für miktex setzen:
+VScode -> Manage -> Settings -> extentions -> LaTex -> Latex-workshop > Latex: Out Dir
+geändert auf "%DIR%/../Output/LaTeX"
+
+ordnerstruktur mit unterordnern verbessert
+

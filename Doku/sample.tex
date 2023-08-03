@@ -1,0 +1,115 @@
+% This is a simple sample document.  For more complicated documents take a look in the exercise tab. Note that everything that comes after a % symbol is treated as comment and ignored when the code is compiled.
+
+\documentclass[a4paper]{article} % \documentclass{} is the first command in any LaTeX code.  It is used to define what kind of document you are creating such as an article or a book, and begins the document preamble
+
+\usepackage{amsmath} % \usepackage is a command that allows you to add functionality to your LaTeX code
+\usepackage[lmargin=3.0cm,rmargin=2.0cm,tmargin=2.0cm,bmargin=2.0cm]{geometry} % show page margins without modifying the page layout
+
+\title{Spectre Monotile} % Sets article title
+\author{Iris Kohlbecker} % Sets authors name
+\date{Sommerprojekt 2023} % Sets date for date compiled
+
+% The preamble ends with the command \begin{document}
+\begin{document} % All begin commands must be paired with an end command somewhere
+    \maketitle % creates title using information in preamble (title, author, date)
+    
+    \section{Einführung} % creates a section
+
+    Dieser Bericht dient als Rezept für die Dokumentation eines Projekts
+    in Text und Video.
+    In diesem Bericht dokumentiere ich als Beispielprojekt den Einstein ``Spectre''.
+    Ein Einstein ist eine Kachel, mit der man die zweidimensionale Ebene bis ins 
+    Unendliche auslegen kann, ohne dass sich das Muster je wiederholt.
+    Der Einstein ``Spectre" ist die erste solche Kachel und wurde erst im Mai 2023
+    von Mathematikern entdeckt.
+
+    Der Bericht zeigt ausserdem, wie man alle Unterlagen eines Projekts
+    in einer Source-Verwaltung ablegt.
+    Und gewisse Tastenkombinationen zur Vereinfachung der Dokumentation.
+    
+    \textbf{Hello World!} Today I am learning \LaTeX. %notice how the command will end at the first non-alphabet charecter such as the . after \LaTeX
+     \LaTeX{} is a great program for writing math. I can write in line math such as $a^2+b^2=c^2$ %$ tells LaTexX to compile as math
+     . I can also give equations their own space: 
+    \begin{equation} % Creates an equation environment and is compiled as math
+    \gamma^2+\theta^2=\omega^3
+    \end{equation}
+    If I do not leave any blank lines \LaTeX{} will continue  this text without making it into a new paragraph.  Notice how there was no indentation in the text after equation (1).  
+    Also notice how even though I hit enter after that sentence and here $\downarrow$
+     \LaTeX{} formats the sentence without any break.  Also   look  how      it   doesn't     matter          how    many  spaces     I put     between       my    words.
+    
+    For a new paragraph I can leave a blank space in my code.
+
+    \section{Werkzeuge} % creates a section
+
+    In diesem Projekt benutze ich folgende Programme:
+    \begin{itemize}
+        \item \textsl{VisualStudio Code} (v1.80.2)
+        \item VSCode Erweiterung \textsl{LaTeX Workshop} (v9.13.3)
+        \item LaTeX Distribution \textsl{MikTeX} (v23.4), benötigt von \textsl{LaTeX Workshop}
+        \item \textsl{Perl} Distribution strawberry-perl (v5.32.1.1), benötigt von \textsl{MikTeX}
+        \item \textsl{KeePass2} (v2.54), benötigt zum Abspeichern von Passwörtern
+        \item \textsl{GitHub}, https://github.com/, als öffentliche Ablage und Versionsverwaltung
+    \end{itemize}
+
+    \section{Pfad-Variable} % creates a section
+    Windows kennt eine globale Umgebungsvariable mit dem Namen ``Path''.
+    In dieser Variable ist eine Liste von Verzeichnispfaden gespeichert.
+    Wenn ein Programm ein anderes Programm aufruft, 
+    sucht Windows das Programm in diesen Verzeichnissen.
+    Nur wenn es in einem dieser Verzeichnisse gefunden wird,
+    kann es ausgeführt werden.
+    Sonst gibt es eine Fehlermeldung.
+
+    Genau genommen gibt es zwei Umgebungsvariablen mit dem Namen ``Path'':
+    eine für den eigenen Benutzer und eine für das ganze System,
+    das heisst für alle Benutzer.
+
+    Um der Pfadvariable des eigenen Benutzers einen weiteren Verzeichnispfad hinzuzufügen:
+    \begin{quote}
+        Start $\triangleright$ Einstellungen $\triangleright$
+        Systemeigenschaften $\triangleright$ Umgebungsvariablen
+        $\triangleright$ Benutzervariablen für [User] $\triangleright$
+        Path $\triangleright$ Bearbeiten
+    \end{quote}
+
+    Zum Beispiel hat der Installer von \textsl{MikTeX} die Pfadvariable
+    nicht automatisch erweitert.
+    Ich habe von Hand den Pfad für \textsl{MikTeX} eingetragen:
+    \begin{quote}
+        C:\textbackslash Users\textbackslash Iris\textbackslash AppData\textbackslash Local\textbackslash Programs\textbackslash MiKTeX\textbackslash miktex\textbackslash bin\textbackslash x64\textbackslash 
+    \end{quote}
+
+    \section{VSCode Einstellungen für LaTeX Workshop} % creates a section
+   
+    Output-Verzeichnis für \textsl{MikTeX} setzen:
+    \begin{quote}
+        VScode $\triangleright$ Manage $\triangleright$ Settings $\triangleright$ extentions $\triangleright$ LaTex $\triangleright$ Latex-workshop $\triangleright$ Latex: Out Dir
+        geändert auf "\%DIR\%/../Output/LaTeX"
+    \end{quote}
+
+    \section{Hilfeseiten} % creates a section
+  
+    \begin{itemize}
+        \item StackExchange für TeX: https://tex.stackexchange.com/
+        \item StackOverflow: https://stackoverflow.com/,
+        beim Suchen das Thema in eckige Klammern setzen,
+        z.B.: [python]...
+    \end{itemize}
+
+    \section{Tastenkombinationen für VSCode} % creates a section
+  
+    \begin{itemize}
+       \item Zeige Suchfenster für alle Befehle: Ctrl + Shift + P
+       \item Ganze Zeile löschen: Ctrl + Shift + K
+    \end{itemize}
+      
+    \section{GitHub} % creates a section
+  
+    Ich habe einen User bei GitHub angelegt 
+    und habe die Begrüssungsseite ``README.md'' erstellt.
+    Statt zu speichern spricht man bei GitHub von einem Commit.
+    Mit jedem Commit wird eine Datei nicht überschrieben,
+    sondern eine neue Version davon gespeichert.
+    Das erlaubt, frühere Versionen von jeder Datei anzuschauen.
+    
+\end{document} % This is the end of the document
