@@ -43,7 +43,7 @@
 
     In diesem Projekt benutze ich folgende Programme:
     \begin{itemize}
-        \item \textsl{VisualStudio Code} (v1.80.2)
+        \item \textsl{VisualStudio Code} (v1.81)
         \item VSCode Erweiterung \textsl{LaTeX Workshop} (v9.13.3)
         \item LaTeX Distribution \textsl{MikTeX} (v23.4), benötigt von \textsl{LaTeX Workshop}
         \item \textsl{Perl} Distribution strawberry-perl (v5.32.1.1), benötigt von \textsl{MikTeX}
@@ -51,6 +51,10 @@
         \item \textsl{GitHub}, https://github.com/, als öffentliche Ablage und Versionsverwaltung
         \item \textsl{TortoiseGit} (v2.14.0), benötigt für git
         \item \textsl{git} (v2.41.0), benötigt von \textsl{TortoiseGit}
+        \item \textsl{Python} (v3.11.4), Python-Interpreter zum Ausführen von Python-Skripten 
+        \item \textsl{Manim Community} (v0.17.3), Python-Bibliothek 
+        zum Erstellen von Animationen
+        \item \textsl{ffmpeg} (v6.0), Video-Codec, benötigt von \textsl{Manim} 
     \end{itemize}
 
     \section{Pfad-Variable} % creates a section
@@ -103,6 +107,7 @@
     \begin{itemize}
        \item Zeige Suchfenster für alle Befehle: Ctrl + Shift + P
        \item Ganze Zeile löschen: Ctrl + Shift + K
+       \item Ganze Zeile verdoppeln: Alt + Shift + Down
        \item für weitere Kombinationen: Google-Suche: VSCode cheat sheet
     \end{itemize}
       
@@ -119,5 +124,26 @@
     Dies führte ich mit hilfe von TortoiseGit durch.
     Um die Geschichte anzusehen, füge ich der URL (in der Username und Projektname schon 
     enthalten sind) ``/commits/master'' hinzu.
+      
+    \section{Manim} % creates a section
+
+    Video-Codec \textsl{ffmpeg} installiert mit dem Befehl:
+    \begin{quote}
+        winget install ffmpeg
+    \end{quote}
+   
+    Manim installiert in VSCode Terminal mit dem Befehl:
+    \begin{quote}
+        python -m pip install manim
+    \end{quote}
     
+    Ich habe ein erstes Video erstellt mit Hilfe des Tutorials 
+    ``Animating a circle'' auf
+    \begin{quote}
+        \textsl{https://docs.manim.community/en/stable/tutorials/quickstart.html\#overview}
+    \end{quote}
+
+    Ich habe einen Kreis gemalt.
+    
+    Ich habe wietere Tutorials von der Webseite $\uparrow$ durgeführt.
 \end{document} % This is the end of the document
