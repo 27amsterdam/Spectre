@@ -30,3 +30,5 @@ erstes git repository angelegt
 
 git repository auf GitHub angelegt
 push mit TortoiseGit durchgeführt
+
+Smith, David; Myers, Joseph Samuel; Kaplan, Craig S.; Goodman-Strauss, Chaim (2023). "A chiral aperiodic monotile". arXiv:2305.17743
