@@ -17,10 +17,12 @@ class Spectre(Scene):
     # from_super_tile_index, from_tile_index, from_corner_index, to_tile_index, to_corner_index, gamma
     super_spectres=[
         [0,2,8,2,8,120],
-        [0,2,8,3,8,60]
+        [0,2,8,3,8,60],
+        [0,4,6,5,6,-60]
+
     ]
 
-    decimals=4
+    decimals=3
 
     def construct(self):
 
@@ -30,6 +32,8 @@ class Spectre(Scene):
         spectre_points=[]
         spectre_creation_objects=[]
         spectre_stroke_width=6
+        super_tile_stroke_width=1.5*spectre_stroke_width
+        envelope_margin_width= 2*super_tile_stroke_width
 
         text=Text("Spectre Monotile", font_size=30).move_to([0,3.5,0])
         self.add(text)
@@ -51,7 +55,7 @@ class Spectre(Scene):
             focus=line.get_end()  
             spectre_points.append(focus)             
 
-        spectre_polygon=Polygon(*spectre_points, color=GREY, stroke_width=spectre_stroke_width)
+        spectre_polygon=Polygon(*spectre_points, color=GREY_B, stroke_width=spectre_stroke_width)
         spectre_polygon.set_fill(GREEN)
         spectre_polygon.set_opacity(1)
         self.play(FadeIn(spectre_polygon),FadeOut(*spectre_creation_objects), run_time=1)
@@ -59,12 +63,14 @@ class Spectre(Scene):
 
         # kunstruiere Super-Kachel
         first_tile_index=1
-        last_tile_index=-1
+        last_tile_index=len(self.super_spectre)
         super_tile=self.draw_super_tile(spectre_polygon, first_tile_index, last_tile_index)
 
         envelope_points = self.get_envelope_points(super_tile)        
-
-
+        envelope_polygon=Polygon(*envelope_points, color=GREY_C, stroke_width=super_tile_stroke_width)
+        self.add(envelope_polygon)
+        super_tile.add(envelope_polygon)
+        envelope_polygons = [envelope_polygon]
 
         self.play(super_tile.animate.scale(0.5).shift([-1,0,0]), run_time=0.5)
         super_tiles=[super_tile]
@@ -86,6 +92,12 @@ class Spectre(Scene):
             self.play(Rotating(to_super_tile, about_point=to_corner, radians= gamma *DEGREES, run_time=0.3))
 
             super_tiles.append(to_super_tile)
+            envelope_polygons.append(to_super_tile[-1])
+
+        super_envelope_points = self.get_envelope_points(envelope_polygons)
+        super_envelope_polygon=Polygon(*super_envelope_points)
+        super_envelope_polygon.set_stroke(width=envelope_margin_width, color=GREY_D, opacity=0.5)
+        self.add(super_envelope_polygon)
 
         self.wait(3) 
 
@@ -108,28 +120,43 @@ class Spectre(Scene):
             spectre_tiles.append(to_tile) 
         return VGroup(*spectre_tiles)  
 
-    def get_envelope_points(self, polygons : VGroup):
+    def get_envelope_points(self, polygons):
         envelope_points = self.get_rounded_points(polygons[0])
-        for polygon in polygons[1 : -1]:
-            rounded_polygon_points = self.get_rounded_points(polygon) 
-            frequency_by_point = dict()
+        for polygon in polygons[1:]:
+            rounded_polygon_points = self.get_rounded_points(polygon)
+
+            successors_by_point = dict[tuple, list[tuple]]() 
+            predecessor_point = envelope_points[-1]
             for envelope_point in envelope_points:
-                frequency_by_point[envelope_point] = 1
+                successors_by_point[predecessor_point] = [envelope_point]
+                predecessor_point = envelope_point
+            
+            predecessor_point = rounded_polygon_points[-1]
+            mode = "start point not defined"
+            intersection_point_count=0
             for polygon_point in rounded_polygon_points:
-                frequency_by_point[polygon_point] = frequency_by_point.setdefault(polygon_point, 0) + 1
+                if predecessor_point in successors_by_point:
+                    successors_by_point[predecessor_point].append(polygon_point)
+                    intersection_point_count+=1
+                    if mode != "stop defining start point":
+                        start_point = predecessor_point
+                        mode = "start point defined"
+                else:
+                    successors_by_point[predecessor_point] = [polygon_point]
+                    if mode == "start point defined":
+                        mode = "stop defining start point"
 
-            neighbours_by_point = dict()
-            for index, envelope_point in enumerate(envelope_points):
-                next_point = envelope_points[(index + 1) % len(envelope_points)]
-                previous_point = envelope_points[(index - 1) % len(envelope_points)]
-                neighbours_by_point[envelope_point] = neighbours_by_point.setdefault(envelope_point, set()).add(next_point).add(previous_point)
-            for polygon_point in rounded_polygon_points:
-                next_point = polygon_point[(index + 1) % len(rounded_polygon_points)]
-                previous_point = polygon_point[(index - 1) % len(rounded_polygon_points)]
-                neighbours_by_point[polygon_point] = neighbours_by_point.setdefault(polygon_point, set()).add(next_point).add(previous_point)
-           
+                predecessor_point = polygon_point
 
-        
+            # print(f"intersection point count: {intersection_point_count}")
+            envelope_points = [start_point]
+            successor = successors_by_point[start_point][-1]
+            while successor != start_point:
+                #envelope_points.append(successors_by_point[successor][0])
+                envelope_points.append(successor)
+                successor = successors_by_point[successor][0]
+
+        return envelope_points   
                
     def get_rounded_points(self, polygon : Polygon):
         return list(map(tuple, polygon.get_vertices().round(self.decimals)))
