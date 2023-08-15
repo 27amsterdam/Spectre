@@ -18,8 +18,11 @@ class Spectre(Scene):
     super_spectres=[
         [0,2,8,2,8,120],
         [0,2,8,3,8,60],
-        [0,4,6,5,6,-60]
-
+        [0,4,6,5,6,-60],
+        [0,0,1,6,5,-120],
+        [1,2,8,6,8,-60],
+        [3,4,6,3,6,60],
+        [3,4,6,7,6,0]
     ]
 
     decimals=3
@@ -72,7 +75,7 @@ class Spectre(Scene):
         super_tile.add(envelope_polygon)
         envelope_polygons = [envelope_polygon]
 
-        self.play(super_tile.animate.scale(0.5).shift([-1,0,0]), run_time=0.5)
+        self.play(super_tile.animate.scale(0.3).shift([-1,0,0]), run_time=0.5)
         super_tiles=[super_tile]
         for super_spectre in self.super_spectres:
             from_super_tile_index, from_tile_index, from_corner_index, to_tile_index, to_corner_index, gamma = super_spectre
