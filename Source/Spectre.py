@@ -34,14 +34,14 @@ class Spectre(Scene):
         focus=DOWN
         spectre_points=[]
         spectre_creation_objects=[]
-        spectre_stroke_width=6
+        spectre_stroke_width=4
         super_tile_stroke_width=1.5*spectre_stroke_width
         envelope_margin_width= 2*super_tile_stroke_width
 
         text=Text("Spectre Monotile", font_size=30).move_to([0,3.5,0])
         self.add(text)
-        text=Text(str(alphas), font_size=23).move_to([0,-3.5,0])
-        self.add(text)
+        alphas_text=Text(str(alphas), font_size=23).move_to([0,-3.5,0])
+        self.add(alphas_text)
         for alpha in alphas:
             dot=Dot(focus, color=RED)
             self.add(dot)
@@ -61,29 +61,49 @@ class Spectre(Scene):
         spectre_polygon=Polygon(*spectre_points, color=GREY_B, stroke_width=spectre_stroke_width)
         spectre_polygon.set_fill(GREEN)
         spectre_polygon.set_opacity(1)
-        self.play(FadeIn(spectre_polygon),FadeOut(*spectre_creation_objects), run_time=1)
+        self.play(FadeIn(spectre_polygon), FadeOut(*spectre_creation_objects), FadeOut(alphas_text), run_time=1)
         self.wait(1)
 
         # kunstruiere Super-Kachel
         first_tile_index=1
         last_tile_index=len(self.super_spectre)
         super_tile=self.draw_super_tile(spectre_polygon, first_tile_index, last_tile_index)
-
+        
         envelope_points = self.get_envelope_points(super_tile)        
         envelope_polygon=Polygon(*envelope_points, color=GREY_C, stroke_width=super_tile_stroke_width)
         self.add(envelope_polygon)
         super_tile.add(envelope_polygon)
-        envelope_polygons = [envelope_polygon]
+ 
+        super_tile_9=super_tile.copy()
+        self.add(super_tile_9)
+        self.play(super_tile.animate.shift([-3.5,0,0]), super_tile_9.animate.shift([3.5,0,0]), run_time=1.5)
+        extra_tile=super_tile[-2]
+        self.play(extra_tile.animate.set_color(PURE_RED))
+        self.play(FadeOut(extra_tile, shift=[-3,1,0]),run_time=1.5)
+        super_tile.remove(extra_tile)
+        super_tile.remove(envelope_polygon)
+        extra_envelope_points = self.get_envelope_points(super_tile)        
+        extra_envelope_polygon=Polygon(*extra_envelope_points, color=GREY_C, stroke_width=super_tile_stroke_width)
+        super_tile.add(extra_envelope_polygon)
+        self.play(Transform(envelope_polygon, extra_envelope_polygon))
+        self.remove(envelope_polygon)
+        envelope_polygons = [extra_envelope_polygon]
+   
+        self.play(super_tile.animate.scale(0.45).move_to([-1,-1,0]), super_tile_9.animate.scale(0.45), run_time=0.5)
+        extra_shift=super_tile[0].get_vertices()[0]-super_tile_9[0].get_vertices()[0]
+        self.play(super_tile_9.animate.shift(extra_shift), run_time=0.5)
+        self.remove(super_tile_9)
 
-        self.play(super_tile.animate.scale(0.3).shift([-1,0,0]), run_time=0.5)
-        super_tiles=[super_tile]
+        print(f"super tile element count: {len(super_tile)}")
+
+        super_tiles=[super_tile_9]
         for super_spectre in self.super_spectres:
             from_super_tile_index, from_tile_index, from_corner_index, to_tile_index, to_corner_index, gamma = super_spectre
             # copy, translate and rotate supertile
             from_super_tile=super_tiles[from_super_tile_index]
             from_tile=from_super_tile[from_tile_index]
             from_tile_vertices=from_tile.get_vertices()
-            from_corner=from_tile_vertices[from_corner_index]
+            from_corner=from_tile_vertices[from_corner_index] 
             to_tile=from_super_tile[to_tile_index]
             to_tile_vertices=to_tile.get_vertices()
             to_corner=to_tile_vertices[to_corner_index]
