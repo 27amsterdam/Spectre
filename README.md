@@ -6,6 +6,7 @@ I used python with the libraries Manim and NumPy.
 
 I created a [pdf report](https://github.com/27amsterdam/Spectre/releases/download/v1.0.0/Bericht.Spectre.pdf) using LaTeX. For editing, I used VSCode with the LaTeX Workshop extention.
 
-Here's the result:
+Here's the result (or on [YouTube](https://www.youtube.com/watch?v=-KX_IyNJ6qc)):
 
-[![Spectre Monotile](https://img.youtube.com/vi/-KX_IyNJ6qc/maxresdefault.jpg)](https://www.youtube.com/watch?v=-KX_IyNJ6qc)
+https://github.com/27amsterdam/Spectre/assets/139158793/8985223d-bdd9-4f6e-bb0d-ee3dc4f273f4
+
